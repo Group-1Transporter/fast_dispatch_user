@@ -59,7 +59,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 11);
             }
 
-            binding.btnEdit.setOnClickListener(new View.OnClickListener() {
+            binding.civ.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent in = new Intent();
@@ -79,15 +79,21 @@ public class CreateProfileActivity extends AppCompatActivity {
                       String name = binding.userName.getText().toString();
                       if (TextUtils.isEmpty(name)) {
                           binding.userName.setError("Username required");
+                          binding.createProfile.setEnabled(false);
+                          return;
                       }
                       String address = binding.address.getText().toString();
                       if (TextUtils.isEmpty(address)) {
                           binding.address.setError("address is required ");
+                          return;
+
                       }
                       String phoneNumber = binding.phoneNumber.getText().toString();
-                      if (TextUtils.isEmpty(phoneNumber))
+                      if (TextUtils.isEmpty(phoneNumber)){
                           binding.phoneNumber.setError("Phone number is required");
+                      return;}
                       String token = FirebaseInstanceId.getInstance().getToken();
+
                       if (imageUri != null) {
                           File file = FileUtils.getFile(CreateProfileActivity.this, imageUri);
                           RequestBody requestFile =

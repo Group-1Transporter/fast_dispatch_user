@@ -144,9 +144,10 @@ public class AddLoadActivity extends AppCompatActivity {
             addLoadBinding.pickupContact.setText(lead.getContactForPickup());
             addLoadBinding.materialType.setText(lead.getTypeOfMaterial());
             if (!lead.getWeight().equals("")){
-                addLoadBinding.weight.setText("Weight : "+lead.getWeight()+" Ton");}
 
-            addLoadBinding.km.setText(lead.getKm()+" km");
+            addLoadBinding.weight.setText(lead.getWeight());}
+
+            addLoadBinding.km.setText(lead.getKm());
             addLoadBinding.lastDate.setText(lead.getDateOfCompletion());
             String[] deliveryAddress = lead.getDeliveryAddress().split(",");
             addLoadBinding.street2.setText(deliveryAddress[0]);
@@ -157,6 +158,7 @@ public class AddLoadActivity extends AppCompatActivity {
             addLoadBinding.btncreateLoad.setText("update load");
 
         }
+
 
         addLoadBinding.lastDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,6 +180,24 @@ public class AddLoadActivity extends AppCompatActivity {
         });
 
 
+        addLoadBinding.specialReq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(addLoadBinding.specialReq.isChecked()){
+                    addLoadBinding.mulmaterial.setVisibility(View.VISIBLE);
+                    addLoadBinding.multipleStr.setVisibility(View.VISIBLE);
+                    addLoadBinding.remark.setVisibility(View.VISIBLE);
+                    addLoadBinding.h.setVisibility(View.VISIBLE);
+
+                }
+                else {
+                    addLoadBinding.mulmaterial.setVisibility(View.GONE);
+                    addLoadBinding.multipleStr.setVisibility(View.GONE);
+                    addLoadBinding.remark.setVisibility(View.GONE);
+                    addLoadBinding.h.setVisibility(View.GONE);
+                }
+            }
+        });
 
 
         addLoadBinding.btncreateLoad.setOnClickListener(new View.OnClickListener() {
@@ -296,13 +316,12 @@ public class AddLoadActivity extends AppCompatActivity {
                             }
                         });
                     }
-                } else {
+                } else{
                     Toast.makeText(AddLoadActivity.this, "Check Internet connection", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AddLoadActivity.this, NoInternetActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
-                }
+                Intent intent=new Intent(AddLoadActivity.this,NoInternetActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();}
             }
 
         });
