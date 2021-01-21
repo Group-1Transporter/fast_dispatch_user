@@ -25,6 +25,8 @@ import com.transporteruser.bean.Lead;
 import com.transporteruser.databinding.HistoryFragementBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,6 +77,7 @@ HistoryFragement extends Fragment {
                 if(response.code() == 200){
                     ArrayList<Lead> leadList = response.body();
                     if (leadList.size()!= 0){
+                        Collections.sort(leadList,new Lead());
                         binding.rv.setVisibility(View.VISIBLE);
                         binding.noData.setVisibility(View.GONE);
                         createdLeadShowAdapter = new CreatedLeadShowAdapter(leadList);
@@ -106,9 +109,10 @@ HistoryFragement extends Fragment {
                 if(response.code() == 200){
                     ArrayList<Lead> leadList = response.body();
                     if(leadList.size()!= 0){
+                        Collections.sort(leadList,new Lead());
                         binding.rv.setVisibility(View.VISIBLE);
                         binding.noData.setVisibility(View.GONE);
-                        adapter = new CompletedLoadShowAdapter(leadList);
+                        adapter = new CompletedLoadShowAdapter(getContext(),leadList);
                         binding.rv.setAdapter(adapter);
                         binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
                     }else{

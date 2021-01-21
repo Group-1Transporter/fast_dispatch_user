@@ -25,6 +25,7 @@ import com.transporteruser.bean.Lead;
 import com.transporteruser.databinding.HomeFragementBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,6 +54,7 @@ public class HomeFragement extends Fragment {
 
                     list = response.body();
                     if (list.size() != 0) {
+                        Collections.sort(list,new Lead());
                         binding.rv.setVisibility(View.VISIBLE);
                         binding.noData.setVisibility(View.GONE);
                         adapter = new HomeAdapter(list);
