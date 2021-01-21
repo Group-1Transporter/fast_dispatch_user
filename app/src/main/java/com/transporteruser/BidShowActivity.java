@@ -128,7 +128,7 @@ public class BidShowActivity extends AppCompatActivity {
                 lead.setDealLockedWith(bid.getTransporterId());
                 lead.setTransporterName(bid.getTransporterName());
                 lead.setStatus("confirmed");
-                lead.setAmount(bid.getAmount());
+                lead.setAmount (""+bid.getAmount());
                 Call<Lead> call=  userApi.updateLead(lead);
 
                 call.enqueue(new Callback<Lead>() {

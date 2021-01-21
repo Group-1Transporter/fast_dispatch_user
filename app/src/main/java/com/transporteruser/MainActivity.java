@@ -1,4 +1,4 @@
-package com.transporteruser;
+ package com.transporteruser;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
@@ -91,6 +92,32 @@ public class MainActivity extends AppCompatActivity {
             if(!image.equalsIgnoreCase("not_found"))
                 Picasso.get().load(image).into(binding.profileShow);
 
+
+            userApi = UserService.getUserApiInstance();
+            userApi.getAllCompletedLeadsByUserId(currentUserId).enqueue(new Callback<ArrayList<Lead>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Lead>> call, Response<ArrayList<Lead>> response) {
+                    if(response.code() == 200) {
+                        ArrayList<Lead> completeList = response.body();
+                        if(completeList.size() != 0) {
+                            for (Lead lead : completeList) {
+                                if (!lead.isRating()) {
+                                    getRatingDialog(lead);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<Lead>> call, Throwable t) {
+
+                }
+            });
+
+
+
+
             binding.profileShow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -108,9 +135,11 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this,UpdateProfileActivity.class);
                         startActivity(intent);
                     } else if (id == R.id.home) {
+                        binding.tvToolbarHome.setText("Home");
                         selected = new HomeFragement();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame, selected).commit();
                     } else if (id == R.id.history) {
+                        binding.tvToolbarHome.setText("History");
                         selected = new HistoryFragement();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame, selected).commit();
                     }
@@ -169,10 +198,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public void getRatingDialog(final String transporterId, final String leadId){
+    private void getRatingDialog(final Lead lead ){
         final AlertDialog ab = new AlertDialog.Builder(this).create();
         final RatingDialogBinding ratingDialogBinding =  RatingDialogBinding.inflate(LayoutInflater.from(this));
-        setContentView(binding.getRoot());
+        ab.setView(ratingDialogBinding.getRoot());
         ab.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         ratingDialogBinding.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,7 +220,9 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v) {
 
-                userApi.checkProfile(currentUserId).enqueue(new Callback<User>() {
+                final ProgressDialog pd = new ProgressDialog(MainActivity.this);
+                pd.show();
+                userApi.checkProfile(FirebaseAuth.getInstance().getUid()).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (response.code() == 200){
@@ -199,18 +230,19 @@ public class MainActivity extends AppCompatActivity {
                             String feedback = ratingDialogBinding.etOverview.getText().toString();
                             r.setRating(""+ra);
                             long timestamp = Calendar.getInstance().getTimeInMillis();
-                            r.setReview(feedback);
+                            r.setFeedback(feedback);
+                            r.setUserId(currentUserId);
                             r.setTimestamp(timestamp);
                             r.setUserName(response.body().getName());
                             r.setImageUrl(response.body().getImageUrl());
-                            userApi.getNumberOfRating(transporterId).enqueue(new Callback<ArrayList<Float>>() {
+                            userApi.getNumberOfRating(lead.getDealLockedWith()).enqueue(new Callback<ArrayList<Float>>() {
                                 @Override
                                 public void onResponse(Call<ArrayList<Float>> call, Response<ArrayList<Float>> response) {
                                     if (response.code() ==200){
                                         ArrayList<Float>al = response.body();
                                         final float numberOfPersons = al.get(0) + 1;
                                         final float totalNumberOfRating = al.get(1)+ra;
-                                        userApi.getTransporter(transporterId).enqueue(new Callback<Transporter>() {
+                                        userApi.getTransporter(lead.getDealLockedWith()).enqueue(new Callback<Transporter>() {
                                             @Override
                                             public void onResponse(Call<Transporter> call, Response<Transporter> response) {
                                                 if(response.code() == 200){
@@ -219,18 +251,35 @@ public class MainActivity extends AppCompatActivity {
                                                     userApi.updateTransporter(transporter).enqueue(new Callback<Transporter>() {
                                                         @Override
                                                         public void onResponse(Call<Transporter> call, Response<Transporter> response) {
+                                                            pd.dismiss();
                                                             if(response.code() == 200){
-                                                                userApi.createRating(transporterId,leadId,r).enqueue(new Callback<Rating>() {
+                                                                userApi.createRating(lead.getDealLockedWith(),lead.getLeadId(),r).enqueue(new Callback<Rating>() {
                                                                     @Override
                                                                     public void onResponse(Call<Rating> call, Response<Rating> response) {
                                                                         if(response.code() == 200){
-                                                                            Toast.makeText(MainActivity.this, ""+ra+" stars give ", Toast.LENGTH_SHORT).show();
+                                                                            lead.setRating(true);
+                                                                            userApi.updateLead(lead).enqueue(new Callback<Lead>() {
+                                                                                @Override
+                                                                                public void onResponse(Call<Lead> call, Response<Lead> response) {
+                                                                                    if(response.code() == 200){
+                                                                                        Toast.makeText(MainActivity.this, "Thanks For Giving us Rating", Toast.LENGTH_SHORT).show();
+                                                                                    }
+                                                                                }
+
+                                                                                @Override
+                                                                                public void onFailure(Call<Lead> call, Throwable t) {
+
+                                                                                }
+                                                                            });
                                                                             ab.dismiss();
+                                                                        }else{
+                                                                            Toast.makeText(MainActivity.this, "Something wrong", Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     }
 
                                                                     @Override
                                                                     public void onFailure(Call<Rating> call, Throwable t) {
+                                                                        pd.dismiss();
                                                                         Toast.makeText(MainActivity.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
                                                                     }
                                                                 });
@@ -264,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-
+                        Toast.makeText(createProfileActivity, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -278,12 +327,12 @@ public class MainActivity extends AppCompatActivity {
                 Fragment selected = null;
                 switch (item.getItemId()) {
                     case R.id.home:
+                        binding.tvToolbarHome.setText("Home");
                         selected = new HomeFragement();
-                        binding.toolbar.setTitle("Home");
                         break;
                     case R.id.history:
                         selected = new HistoryFragement();
-                        binding.toolbar.setTitle("History");
+                        binding.tvToolbarHome.setText("History");
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame, selected).commit();
@@ -311,7 +360,6 @@ public class MainActivity extends AppCompatActivity {
         String status = sp.getString("userId", "not_created");
         if (status.equals("not_created")) {
             final String token = FirebaseInstanceId.getInstance().getToken();
-            final UserService.UserApi userApi = UserService.getUserApiInstance();
             Call<User> call = userApi.checkProfile(currentUserId);
             call.enqueue(new Callback<User>() {
                 @Override

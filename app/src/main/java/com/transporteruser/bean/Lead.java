@@ -4,8 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
-public class Lead implements Serializable {
+public class Lead implements Serializable, Comparator<Lead> {
 
     @SerializedName("userId")
     @Expose
@@ -57,7 +58,28 @@ public class Lead implements Serializable {
     private String km="";
     @SerializedName("amount")
     @Expose
+
     private String amount="";
+
+    private boolean rating;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    private boolean active = true;
+
+    public boolean isRating() {
+        return rating;
+    }
+
+    public void setRating(boolean rating) {
+        this.rating = rating;
+    }
 
     public String getUserId() {
         return userId;
@@ -193,5 +215,13 @@ public class Lead implements Serializable {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public int compare(Lead t2, Lead t1) {
+        long t = Long.parseLong(t2.getTimestamp());
+        long ti = Long.parseLong(t1.getTimestamp());
+        int result = (int) (ti - t);
+        return result;
     }
 }
