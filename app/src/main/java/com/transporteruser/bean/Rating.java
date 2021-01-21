@@ -2,7 +2,7 @@ package com.transporteruser.bean;
 
 public class Rating {
 
-    String rating,review,userName,imageUrl;
+    String rating,feedback,userName,imageUrl,userId;
     long timestamp;
 
     public String getRating() {
@@ -13,16 +13,24 @@ public class Rating {
         this.rating = rating;
     }
 
-    public String getReview() {
-        return review;
-    }
-
-    public void setReview(String review) {
-        this.review = review;
-    }
-
     public String getUserName() {
         return userName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 
     public void setUserName(String userName) {

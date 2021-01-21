@@ -1,10 +1,12 @@
 package com.transporteruser.bean;
 
 import java.io.Serializable;
+import java.util.Comparator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Bid implements Serializable
+public class Bid implements Serializable, Comparator<Bid>
 {
 
     @SerializedName("bidId")
@@ -21,7 +23,7 @@ public class Bid implements Serializable
     private String transporterName;
     @SerializedName("amount")
     @Expose
-    private String amount;
+    private Double amount;
     @SerializedName("remark")
     @Expose
     private String remark;
@@ -62,11 +64,11 @@ public class Bid implements Serializable
         this.transporterName = transporterName;
     }
 
-    public String getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -86,4 +88,9 @@ public class Bid implements Serializable
         this.estimatedDate = estimatedDate;
     }
 
+    @Override
+    public int compare(Bid bid, Bid t1) {
+        int rate = (int) (bid.getAmount()-t1.getAmount());
+        return rate;
+    }
 }
