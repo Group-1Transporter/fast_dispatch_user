@@ -27,16 +27,17 @@
                     android:id="@+id/ivBack"
                     />
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="70dp"
-                    android:layout_height="50dp"
+                    android:layout_width="60dp"
+                    android:padding="10dp"
+                    android:layout_height="55dp"
                     android:src="@drawable/user"
                     android:layout_margin="5dp"
                     android:id="@+id/civUser"/>
                 <TextView
-                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="start|center"
+                    android:textStyle="bold"
                     android:text="UserName"
                     android:id="@+id/tvName"
                     android:textColor="@color/white"
@@ -59,7 +60,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
-        android:background="@color/skyblue"
         android:id="@+id/ll"
         android:weightSum="1"
         >
@@ -67,8 +67,9 @@
             android:layout_width="0dp"
             android:layout_height="37dp"
             android:layout_weight="0.84"
-            android:background="@color/white"
+            android:background="@drawable/border_white"
             android:padding="8dp"
+            android:elevation="10dp"
             android:hint="Type Message here"
             android:layout_gravity="center_vertical"
             android:textColor="@color/black"

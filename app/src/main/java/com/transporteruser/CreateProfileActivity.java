@@ -79,15 +79,21 @@ public class CreateProfileActivity extends AppCompatActivity {
                       String name = binding.userName.getText().toString();
                       if (TextUtils.isEmpty(name)) {
                           binding.userName.setError("Username required");
+                          binding.createProfile.setEnabled(false);
+                          return;
                       }
                       String address = binding.address.getText().toString();
                       if (TextUtils.isEmpty(address)) {
                           binding.address.setError("address is required ");
+                          return;
+
                       }
                       String phoneNumber = binding.phoneNumber.getText().toString();
-                      if (TextUtils.isEmpty(phoneNumber))
+                      if (TextUtils.isEmpty(phoneNumber)){
                           binding.phoneNumber.setError("Phone number is required");
+                      return;}
                       String token = FirebaseInstanceId.getInstance().getToken();
+
                       if (imageUri != null) {
                           File file = FileUtils.getFile(CreateProfileActivity.this, imageUri);
                           RequestBody requestFile =

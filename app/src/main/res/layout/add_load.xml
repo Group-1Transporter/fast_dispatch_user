@@ -160,7 +160,6 @@
             android:background="@drawable/border_white"
             android:layout_below="@+id/city"
             android:layout_marginTop="5dp"
-            android:hint="City"
             android:gravity="left"
             android:textSize="12sp"
             android:padding="10dp"/>
@@ -259,18 +258,93 @@
             android:hint="Delivery contact"
             android:textSize="15sp"
             android:padding="10dp"/>
+        <CheckBox
+            android:id="@+id/specialReq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/deliveryContact"
+            android:layout_marginTop="19dp"
+            android:buttonTint="@color/blue"
+            android:layoutDirection="rtl"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:text="Special Requirement"
+            android:textStyle="bold"
+            android:textColor="@color/blue"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mulmaterial"
+            android:visibility="gone"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:textColor="@color/black"
+            android:textColorHint="#AEB9C5"
+            android:elevation="6dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/border_white"
+            android:layout_below="@+id/specialReq"
+            android:layout_marginTop="5dp"
+            android:hint="You can add multiple material"
+            android:textSize="15sp"
+            android:padding="10dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/multipleStr"
+            android:visibility="gone"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:textColor="@color/black"
+            android:textColorHint="#AEB9C5"
+            android:elevation="6dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/border_white"
+            android:layout_below="@+id/mulmaterial"
+            android:layout_marginTop="5dp"
+            android:hint="pickup Addreess"
+            android:textSize="15sp"
+            android:padding="10dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/remark"
+            android:visibility="gone"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:textColor="@color/black"
+            android:textColorHint="#AEB9C5"
+            android:elevation="6dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/border_white"
+            android:layout_below="@+id/multipleStr"
+            android:layout_marginTop="5dp"
+            android:hint="Remark"
+            android:textSize="15sp"
+            android:padding="10dp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/h"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:elevation="6dp"
+            android:visibility="gone"
+            android:buttonTint="@color/blue"
+            android:layoutDirection="rtl"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/border_white"
+            android:layout_below="@+id/remark"
+            android:layout_marginTop="5dp"
+            android:hint="Handle With Care"
+            android:textSize="15sp"
+            android:padding="10dp"/>
         <Button
             android:id="@+id/btncreateLoad"
             style="@style/button"
             android:elevation="5dp"
-            android:layout_below="@id/deliveryContact"
+            android:lines="2"
+            android:layout_below="@id/h"
             android:text="Add Load"/>
-
-
-
-
-
-
-
     </RelativeLayout>
 </ScrollView>
