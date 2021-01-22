@@ -18,6 +18,7 @@
         <activity android:name=".BidShowActivity" android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".UpdateProfileActivity" android:parentActivityName=".MainActivity"/>
         <activity android:name=".AddLoadActivity" android:parentActivityName=".MainActivity"/>
+
         <activity
             android:name=".PrivacyPolicy"
             android:parentActivityName=".MainActivity" />

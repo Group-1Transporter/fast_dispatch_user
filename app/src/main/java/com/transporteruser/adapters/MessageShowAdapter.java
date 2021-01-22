@@ -35,13 +35,23 @@ public class MessageShowAdapter extends RecyclerView.Adapter<MessageShowAdapter.
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         Message message = messageList.get(position);
         if(currentUserId == message.getFrom()){
-            holder.binding.received.setVisibility(View.GONE);
-            holder.binding.sent.setVisibility(View.VISIBLE);
-            holder.binding.tvChatSent.setText(message.getMessage());
+//            holder.binding.received.setVisibility(View.GONE);
+//            holder.binding.sent.setVisibility(View.VISIBLE);
+//            holder.binding.tvChatSent.setText(message.getMessage());
+            holder.binding.ll1.setVisibility(View.GONE);
+            holder.binding.senderTime.setVisibility(View.GONE);
+            holder.binding.senderMsg.setVisibility(View.GONE);
+            //binding.myTime.setText(message.getDate()+" "+message.getTime());
+           holder.binding.myMsg.setText(message.getMessage());
         }else if(currentUserId != message.getFrom()){
-            holder.binding.received.setVisibility(View.VISIBLE);
-            holder.binding.sent.setVisibility(View.GONE);
-            holder.binding.tvChatReceived.setText(message.getMessage());
+//            holder.binding.received.setVisibility(View.VISIBLE);
+//            holder.binding.sent.setVisibility(View.GONE);
+//            holder.binding.tvChatReceived.setText(message.getMessage());
+            holder.binding.ll2.setVisibility(View.GONE);
+            holder.binding.myMsg.setVisibility(View.GONE);
+            holder.binding.myTime.setVisibility(View.GONE);
+            //binding.senderTime.setText(message.getDate()+" "+message.getTime());
+            holder.binding.senderMsg.setText(message.getMessage());
         }
     }
 

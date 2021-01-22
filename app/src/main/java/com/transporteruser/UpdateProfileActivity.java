@@ -20,6 +20,7 @@ import androidx.core.content.PermissionChecker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
+import com.transporteruser.adapters.CompletedLoadShowAdapter;
 import com.transporteruser.api.UserService;
 import com.transporteruser.bean.User;
 import com.transporteruser.databinding.ActivityCreateProfileBinding;
@@ -62,6 +63,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         imageUrl=sp.getString("imageUrl","");
         userId=(sp.getString("userId",""));
         Picasso.get().load(imageUrl).into(binding.civ);
+        binding.name.setText(sp.getString("name",""));
 
         binding.civ.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +96,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         binding.histry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in=new Intent(UpdateProfileActivity.this,HistoryFragement.class);
+                Intent in=new Intent(UpdateProfileActivity.this, HistoryFragement.class);
                 in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(in);
                 finish();

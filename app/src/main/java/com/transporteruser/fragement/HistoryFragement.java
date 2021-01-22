@@ -1,6 +1,7 @@
 package com.transporteruser.fragement;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,13 +18,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.transporteruser.AddLoadActivity;
 import com.transporteruser.R;
 import com.transporteruser.adapters.CompletedLoadShowAdapter;
 import com.transporteruser.adapters.CreatedLeadShowAdapter;
 import com.transporteruser.adapters.HomeAdapter;
+import com.transporteruser.adapters.TabAccessAdapter;
+import com.transporteruser.adapters.TabAccessAdapter2;
 import com.transporteruser.api.UserService;
 import com.transporteruser.bean.Lead;
 import com.transporteruser.databinding.HistoryFragementBinding;
+import com.transporteruser.databinding.HistoryFragmentBinding;
+import com.transporteruser.databinding.HomeFragementBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,112 +41,21 @@ import retrofit2.Response;
 
 public class
 HistoryFragement extends Fragment {
-    UserService.UserApi userApi;
+
+    TabAccessAdapter2 tabAccessAdapter;
     HistoryFragementBinding binding;
-    CompletedLoadShowAdapter adapter;
-    String currentUserId ;
-    SharedPreferences sp = null;
-    ProgressDialog pd;
-    CreatedLeadShowAdapter createdLeadShowAdapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = HistoryFragementBinding.inflate(inflater);
+        tabAccessAdapter = new TabAccessAdapter2(getChildFragmentManager(),1,getContext());
+        binding.viewPager.setAdapter(tabAccessAdapter);
+        binding.tb.setupWithViewPager(binding.viewPager);
 
-        binding = HistoryFragementBinding.inflate(getLayoutInflater());
-        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        userApi = UserService.getUserApiInstance();
-        getCompletedLeads();
-        binding.tb.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                String title=tab.getText().toString();
-                if (title.equals("Completed Load")){
-                    getCompletedLeads();
-                }
-                else if (title.equals("Created Load")){
-                    getCreateLeads();
 
-                }
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
         return binding.getRoot();
+
     }
 
-    private void getCreateLeads(){
-        pd = new ProgressDialog(getContext());
-        pd.setMessage("please wait...");
-        pd.show();
-        Call<ArrayList<Lead>> call = userApi.getAllCreatedLeadsByUserId(currentUserId);
-        call.enqueue(new Callback<ArrayList<Lead>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Lead>> call, Response<ArrayList<Lead>> response) {
-                pd.dismiss();
-                if(response.code() == 200){
-                    ArrayList<Lead> leadList = response.body();
-                    if (leadList.size()!= 0){
-                        Collections.sort(leadList,new Lead());
-                        binding.rv.setVisibility(View.VISIBLE);
-                        binding.noData.setVisibility(View.GONE);
-                        createdLeadShowAdapter = new CreatedLeadShowAdapter(leadList);
-                        binding.rv.setAdapter(createdLeadShowAdapter);
-                        binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
-                    }else {
-                        binding.rv.setVisibility(View.GONE);
-                        binding.noData.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Lead>> call, Throwable t) {
-                pd.dismiss();
-                Toast.makeText(getContext(), ""+t, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    private void getCompletedLeads(){
-        pd = new ProgressDialog(getContext());
-        pd.setMessage("please wait...");
-        pd.show();
-        Call<ArrayList<Lead>> call = userApi.getAllCompletedLeadsByUserId(currentUserId);
-        call.enqueue(new Callback<ArrayList<Lead>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Lead>> call, Response<ArrayList<Lead>> response) {
-                pd.dismiss();
-                if(response.code() == 200){
-                    ArrayList<Lead> leadList = response.body();
-                    if(leadList.size()!= 0){
-                        Collections.sort(leadList,new Lead());
-                        binding.rv.setVisibility(View.VISIBLE);
-                        binding.noData.setVisibility(View.GONE);
-                        adapter = new CompletedLoadShowAdapter(getContext(),leadList);
-                        binding.rv.setAdapter(adapter);
-                        binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
-                    }else{
-                        binding.rv.setVisibility(View.GONE);
-                        binding.noData.setVisibility(View.VISIBLE);
-                    }
-
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Lead>> call, Throwable t) {
-                pd.dismiss();
-                Toast.makeText(getContext(), ""+t, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 }
