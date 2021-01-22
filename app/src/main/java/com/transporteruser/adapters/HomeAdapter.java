@@ -24,15 +24,21 @@ import java.util.ArrayList;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
     ArrayList<Lead> list;
     OnHomeRecyclerListner listner;
-    boolean currentLoad = true;
+    OnConfirmedListner listner1;
+    boolean confirmedLoad = false;
     public HomeAdapter(ArrayList<Lead> list){
         this.list = list;
+    }
+    public HomeAdapter(ArrayList<Lead> list,boolean confirmedLoad){
+        this.list = list;
+        this.confirmedLoad = confirmedLoad;
+
     }
 
     @NonNull
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-         CurrentAndConfirmedListBinding binding = CurrentAndConfirmedListBinding.inflate(LayoutInflater.from(parent.getContext()));
+        CurrentAndConfirmedListBinding binding = CurrentAndConfirmedListBinding.inflate(LayoutInflater.from(parent.getContext()));
         return new HomeViewHolder(binding);
     }
 
@@ -42,7 +48,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         if(position == 0 && lead.getStatus().equals("")) {
             holder.binding.tvCl.setVisibility(View.VISIBLE);
             holder.binding.tvCl.setText("Current Loads");
-        }else if(currentLoad && (lead.getStatus().equalsIgnoreCase("confirmed") || lead.getStatus().equalsIgnoreCase("in transist") || lead.getStatus().equalsIgnoreCase("reached") || lead.getStatus().equalsIgnoreCase("loaded"))){
+        }else if(confirmedLoad){
             holder.binding.tvCl.setVisibility(View.VISIBLE);
             holder.binding.tvCl.setText("Confirmed Loads");
         }else{
@@ -80,7 +86,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             holder.binding.tvLastDate.setText(lead.getDateOfCompletion());
             holder.binding.tvDistance.setText(lead.getKm()+" km");
         } else{
-            currentLoad = false;
             holder.binding.llCurrentLoad.setVisibility(View.GONE);
             holder.binding.llConfirmLoad.setVisibility(View.VISIBLE);
             holder.binding.tvTransporterName.setText(""+lead.getTransporterName());
@@ -130,7 +135,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                             }else if (title.equals("Delete")){
                                 if(position != RecyclerView.NO_POSITION && listner != null)
                                     listner.onClick(list.get(position),position,"Delete");
-                            } 
+                            }
                             return true;
                         }
                     });
@@ -155,10 +160,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                             int position = getAdapterPosition();
                             popupMenu.setGravity(Gravity.RIGHT);
                             if(title.equals("Chat with Client")){
-                                if(position != RecyclerView.NO_POSITION && listner != null)
-                                    listner.onClick(list.get(position),position,"Chat with client");
+                                if(position != RecyclerView.NO_POSITION && listner1 != null)
+                                    listner1.onClick(list.get(position),position,"Chat with client");
+
                             }else if (title.equals("Cancel")){
-                                Toast.makeText(itemView.getContext(), "Cancel", Toast.LENGTH_SHORT).show();
+                                if(position != RecyclerView.NO_POSITION && listner1 != null) {
+
+                                        listner1.onClick(list.get(position), position, "Cancel");
+
+                                }
                             }
                             return true;
                         }
@@ -173,6 +183,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     public interface OnHomeRecyclerListner{
         public void onClick(Lead lead , int position , String status);
+    }
+
+    public interface OnConfirmedListner{
+        public void onClick(Lead lead , int position , String status);
+    }
+
+    public void onConfirmedClick(OnConfirmedListner listner1){
+        this.listner1 = listner1;
     }
 
     public void OnHomeClick(OnHomeRecyclerListner listner){

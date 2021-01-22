@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -38,6 +39,8 @@ import com.transporteruser.bean.Lead;
 import com.transporteruser.bean.Rating;
 import com.transporteruser.bean.Transporter;
 import com.transporteruser.bean.User;
+
+
 import com.transporteruser.databinding.ActivityMainBinding;
 import com.transporteruser.databinding.NointernentBinding;
 import com.transporteruser.databinding.RatingDialogBinding;
@@ -46,6 +49,7 @@ import com.transporteruser.fragement.HomeFragement;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,8 +81,18 @@ public class MainActivity extends AppCompatActivity {
             toggle = new ActionBarDrawerToggle(this, binding.drawer, binding.toolbar, R.string.open, R.string.close);
             toggle.syncState();
             toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
+            String image = sp.getString("imageUrl","not_found");
             View view = binding.navDrawer.inflateHeaderView(R.layout.navigation_header);
+            TextView name = view.findViewById(R.id.tvUsername);
+            String userName = sp.getString("name","not_found");
+            if (!userName.equalsIgnoreCase("not_found"))
+            name.setText(userName);
             ImageView iv = view.findViewById(R.id.back);
+            CircleImageView civ = view.findViewById(R.id.civUser);
+            if(!image.equalsIgnoreCase("not_found"))
+                Picasso.get().load(image).into(civ);
+
+
             iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -88,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             view.setVisibility(View.VISIBLE);
             getFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame, new HomeFragement()).commit();
-            String image = sp.getString("imageUrl","not_found");
+
             if(!image.equalsIgnoreCase("not_found"))
                 Picasso.get().load(image).into(binding.profileShow);
 
@@ -135,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this,UpdateProfileActivity.class);
                         startActivity(intent);
                     } else if (id == R.id.home) {
-                        binding.tvToolbarHome.setText("Home");
+                       binding.tvToolbarHome.setText("Home");
                         selected = new HomeFragement();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame, selected).commit();
                     } else if (id == R.id.history) {
