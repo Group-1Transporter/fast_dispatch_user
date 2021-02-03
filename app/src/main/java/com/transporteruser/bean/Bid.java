@@ -65,7 +65,7 @@ public class Bid implements Serializable, Comparator<Bid>
     }
 
     public Double getAmount() {
-        return amount;
+        return (amount);
     }
 
     public void setAmount(Double amount) {
@@ -90,7 +90,7 @@ public class Bid implements Serializable, Comparator<Bid>
 
     @Override
     public int compare(Bid bid, Bid t1) {
-        int rate = (int) (bid.getAmount()-t1.getAmount());
+        int rate = (int)(bid.getAmount() - t1.getAmount());
         return rate;
     }
 }

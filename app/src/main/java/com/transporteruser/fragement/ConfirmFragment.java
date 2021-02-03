@@ -23,6 +23,7 @@ import com.transporteruser.databinding.ConfirmFragmentBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +45,7 @@ public class ConfirmFragment extends Fragment {
                 if(response.code() == 200){
                     list = response.body();
                     if (list.size() != 0) {
-                        Collections.sort(list,new Lead());
+                        Collections.sort(list,  new Lead());
                         binding.rv.setVisibility(View.VISIBLE);
                         binding.noData.setVisibility(View.GONE);
                         adapter = new HomeAdapter(list,true);

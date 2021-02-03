@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         ArrayList<Lead> completeList = response.body();
                         if(completeList.size() != 0) {
                             for (Lead lead : completeList) {
-                                if (!lead.isRating()) {
+                                if (!lead.getRating()) {
                                     getRatingDialog(lead);
                                 }
                             }

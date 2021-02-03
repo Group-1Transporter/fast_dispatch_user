@@ -52,6 +52,7 @@ public class BidShowActivity extends AppCompatActivity {
         name = sp.getString("name","");
         userApi = UserService.getUserApiInstance();
         binding = ActivityBidShowBinding.inflate(LayoutInflater.from(this));
+
         setContentView(binding.getRoot());
         Intent in = getIntent();
         lead = (Lead) in.getSerializableExtra("lead");
@@ -65,6 +66,13 @@ public class BidShowActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(pickup+" To "+delivery);
+        binding.lastDate.setText(lead.getDateOfCompletion());
+        binding.weight.setText(lead.getKm());
+        binding.tvpickupContact.setText(lead.getContactForPickup());
+        binding.tvDeliveryContact.setText(lead.getContactForDelivery());
+        binding.materialType.setText(lead.getTypeOfMaterial());
+        binding.pickupAddress.setText(pickupAddress[0]+","+pickupAddress[1]);
+        binding.deliveryAddress.setText(deliveyAdress[0]+","+deliveyAdress[1]);
     }
 
     private void getBidsByLead(String leadId) {
@@ -75,7 +83,8 @@ public class BidShowActivity extends AppCompatActivity {
                 if(response.code() == 200) {
                     adapter = new BidShowAdapter(response.body(),lead);
                     binding.rv.setAdapter(adapter);
-                    binding.rv.setLayoutManager(new LinearLayoutManager(BidShowActivity.this));
+                    LinearLayoutManager l=new LinearLayoutManager(BidShowActivity.this,LinearLayoutManager.HORIZONTAL,false);
+                    binding.rv.setLayoutManager(l);
                     adapter.onBidShowClickListener(new BidShowAdapter.OnRecycleViewClickListener() {
                         @Override
                         public void onClickListener(Bid bid, int position) {
