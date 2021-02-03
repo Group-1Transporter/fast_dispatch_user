@@ -1,6 +1,7 @@
 package com.transporteruser.adapters;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -62,7 +63,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 @Override
                 public void onClick(View view) {
                     Intent in = new Intent(holder.itemView.getContext(), BidShowActivity.class);
-                    in.putExtra("lead",lead);
+                    in.putExtra("lead",  lead);
                     holder.itemView.getContext().startActivity(in);
                 }
             });
