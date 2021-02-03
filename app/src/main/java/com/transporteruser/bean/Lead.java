@@ -1,4 +1,3 @@
-
 package com.transporteruser.bean;
 
 import com.google.gson.annotations.Expose;

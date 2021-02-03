@@ -39,8 +39,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civUser"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
+            android:padding="10dp"
+            android:layout_marginRight="290dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/user_logo" />
     </LinearLayout>
 
@@ -48,9 +50,10 @@
             android:id="@+id/tvUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="start"
+            android:layout_marginLeft="25dp"
             android:text="User name"
             android:textColor="@color/black"
-            android:textSize="25dp" />
+            android:textSize="20dp" />
 
 </LinearLayout>
