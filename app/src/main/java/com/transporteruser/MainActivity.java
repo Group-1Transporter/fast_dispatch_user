@@ -168,11 +168,8 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     else if (id == R.id.TermAndCondition) {
-                        Intent i = new Intent(Intent.ACTION_SEND);
-                        i.setType("text/plain");
-                        i.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL");
-                        i.putExtra(Intent.EXTRA_TEXT, "https://transpoter-uer.flycricket.io/privacy.html");
-                        startActivity(Intent.createChooser(i, "Share URL"));
+                       Intent i = new Intent(MainActivity.this, TermAndCondition.class);
+                       startActivity(i);
 
                     } else if (id == R.id.PrivacyPoalcy) {
                         Intent i = new Intent(MainActivity.this, PrivacyPolicy.class);

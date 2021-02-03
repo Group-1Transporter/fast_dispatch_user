@@ -8,15 +8,30 @@
         android:layout_height="match_parent"
         android:id="@+id/rv"/>
     <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/no_data"
+        android:layout_below="@+id/tb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/no_data"
-        android:orientation="vertical"
-        >
+        android:gravity="center"
+        android:orientation="vertical">
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/no_data_found"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/nodata"/>
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:text="No load created yet,tap + icon at the bottom of your screen"
+            android:textColor="#A1A1A1"
+            android:textSize="14sp"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

@@ -73,7 +73,7 @@ public class Lead implements Serializable, Comparator<Lead> {
 
     private boolean active = true;
 
-    public boolean isRating() {
+    public boolean      isRating() {
         return rating;
     }
 
