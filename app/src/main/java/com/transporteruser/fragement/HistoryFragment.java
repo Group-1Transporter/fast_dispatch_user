@@ -23,6 +23,7 @@ import com.transporteruser.databinding.HistoryFragmentBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,7 +50,7 @@ public class HistoryFragment extends Fragment {
                 if(response.code() == 200){
                     ArrayList<Lead> leadList = response.body();
                     if(leadList.size()!= 0){
-                        Collections.sort(leadList,new Lead());
+                        Collections.sort(leadList, (Comparator<? super Lead>) new Lead());
                         binding.rv.setVisibility(View.VISIBLE);
                         binding.noData.setVisibility(View.GONE);
                         adapter = new CompletedLoadShowAdapter(getContext(),leadList);

@@ -1,3 +1,4 @@
+
 package com.transporteruser.bean;
 
 import com.google.gson.annotations.Expose;
@@ -35,18 +36,21 @@ public class Lead implements Serializable, Comparator<Lead> {
     @SerializedName("dateOfCompletion")
     @Expose
     private String dateOfCompletion;
+    @SerializedName("amount")
+    @Expose
+    private String amount;
     @SerializedName("timestamp")
     @Expose
     private String timestamp;
     @SerializedName("status")
     @Expose
-    private String status = "";
+    private String status;
     @SerializedName("vehicleNumber")
     @Expose
     private String vehicleNumber;
     @SerializedName("dealLockedWith")
     @Expose
-    private String dealLockedWith="";
+    private String dealLockedWith;
     @SerializedName("bidCount")
     @Expose
     private String bidCount="0";
@@ -55,31 +59,16 @@ public class Lead implements Serializable, Comparator<Lead> {
     private String transporterName;
     @SerializedName("km")
     @Expose
-    private String km="";
-    @SerializedName("amount")
+    private String km;
+    @SerializedName("rating")
     @Expose
-
-    private String amount="";
-
-    private boolean rating;
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    private boolean active = true;
-
-    public boolean isRating() {
-        return rating;
-    }
-
-    public void setRating(boolean rating) {
-        this.rating = rating;
-    }
+    private Boolean rating;
+    @SerializedName("special")
+    @Expose
+    private Boolean special;
+    @SerializedName("specialRequirement")
+    @Expose
+    private SpecialRequirement specialRequirement;
 
     public String getUserId() {
         return userId;
@@ -153,6 +142,14 @@ public class Lead implements Serializable, Comparator<Lead> {
         this.dateOfCompletion = dateOfCompletion;
     }
 
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
     public String getTimestamp() {
         return timestamp;
     }
@@ -209,12 +206,28 @@ public class Lead implements Serializable, Comparator<Lead> {
         this.km = km;
     }
 
-    public String getAmount() {
-        return amount;
+    public Boolean getRating() {
+        return rating;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setRating(Boolean rating) {
+        this.rating = rating;
+    }
+
+    public Boolean getSpecial() {
+        return special;
+    }
+
+    public void setSpecial(Boolean special) {
+        this.special = special;
+    }
+
+    public SpecialRequirement getSpecialRequirement() {
+        return specialRequirement;
+    }
+
+    public void setSpecialRequirement(SpecialRequirement specialRequirement) {
+        this.specialRequirement = specialRequirement;
     }
 
     @Override
@@ -222,6 +235,5 @@ public class Lead implements Serializable, Comparator<Lead> {
         long t = Long.parseLong(t2.getTimestamp());
         long ti = Long.parseLong(t1.getTimestamp());
         int result = (int) (ti - t);
-        return result;
-    }
+        return result;    }
 }

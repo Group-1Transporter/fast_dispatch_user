@@ -18,13 +18,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.transporteruser.AddLoadActivity;
 import com.transporteruser.ChatActivity;
+import com.transporteruser.adapters.CreatedLeadShowAdapter;
 import com.transporteruser.adapters.HomeAdapter;
 import com.transporteruser.api.UserService;
 import com.transporteruser.bean.Lead;
 import com.transporteruser.databinding.CreateFragmentBinding;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +54,7 @@ public class CreateFragment extends Fragment {
                 if(response.code() == 200){
                     list = response.body();
                     if (list.size() != 0) {
-                        Collections.sort(list,new Lead());
+                        Collections.sort(list, (Comparator<? super Lead>) new Lead());
                         binding.rv.setVisibility(View.VISIBLE);
                         binding.noData.setVisibility(View.GONE);
                         adapter = new HomeAdapter(list);
@@ -68,6 +71,13 @@ public class CreateFragment extends Fragment {
                         binding.noData.setVisibility(View.VISIBLE);
                     }
                 }
+                else  if(response.code()==404){
+                    Toast.makeText(getContext(), "error 404", Toast.LENGTH_SHORT).show();
+                }
+                else if(response.code()==500){
+                    Toast.makeText(getContext(), "500", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             @Override
@@ -115,7 +125,7 @@ public class CreateFragment extends Fragment {
             ab.show();
         }else if(status.equalsIgnoreCase("Edit")){
             Intent i = new Intent(getContext(), AddLoadActivity.class);
-            i.putExtra("lead",lead);
+            i.putExtra("lead", (Serializable) lead);
             startActivity(i);
         }
     }
