@@ -37,7 +37,7 @@ public class CompletedLoadShowAdapter extends RecyclerView.Adapter<CompletedLoad
     ArrayList<Lead> leadList;
     UserService.UserApi userApi ;
     Context context;
-    float ra = 2;
+    float ra = 2.5f;
 
     public CompletedLoadShowAdapter(Context context,ArrayList<Lead> leadList){
         this.leadList = leadList;

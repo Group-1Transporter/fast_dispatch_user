@@ -114,6 +114,9 @@ public class CreatedLeadShowAdapter extends RecyclerView.Adapter<CreatedLeadShow
         return leadList.size();
     }
 
+    public void OnCreate(HomeAdapter.OnHomeRecyclerListner onHomeRecyclerListner) {
+    }
+
     public class CreatedViewHolder extends RecyclerView.ViewHolder {
        CurrentAndConfirmedListBinding binding;
        public CreatedViewHolder(CurrentAndConfirmedListBinding binding) {

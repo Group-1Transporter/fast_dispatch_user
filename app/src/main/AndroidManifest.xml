@@ -45,6 +45,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".CreateProfileActivity" android:parentActivityName=".SplashScreen" />
+        <activity android:name=".TransporterProfile"/>
         <activity android:name=".ChatActivity"/>
         <service android:name=".ReceivingPushNotification"
             android:enabled="true"

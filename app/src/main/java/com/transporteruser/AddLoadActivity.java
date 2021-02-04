@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import com.transporteruser.api.StateService;
 import com.transporteruser.api.UserService;
 import com.transporteruser.bean.Bid;
 import com.transporteruser.bean.Lead;
+import com.transporteruser.bean.SpecialRequirement;
 import com.transporteruser.bean.State;
 import com.transporteruser.bean.Transporter;
 import com.transporteruser.databinding.AddLoadBinding;
@@ -49,6 +51,7 @@ public class AddLoadActivity extends AppCompatActivity {
     String currentUserId;
     Lead leads;
     Lead lead;
+    SpecialRequirement specialRequirement;
     Transporter transporter;
     String name;
     static SharedPreferences sp = null;
@@ -64,6 +67,7 @@ public class AddLoadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         addLoadBinding = AddLoadBinding.inflate(LayoutInflater.from(this));
         setContentView(addLoadBinding.getRoot());
+
         final State state = new State();
         SharedPreferences sp = getSharedPreferences("user",MODE_PRIVATE);
         name = sp.getString("name","");
@@ -120,6 +124,7 @@ public class AddLoadActivity extends AppCompatActivity {
                 Toast.makeText(AddLoadActivity.this, t + "", Toast.LENGTH_SHORT).show();
             }
         });
+        
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         initComponent();
         Intent i = getIntent();
@@ -129,6 +134,11 @@ public class AddLoadActivity extends AppCompatActivity {
             String[] pickupAddress = lead.getPickUpAddress().split(",");
             addLoadBinding.street.setText(pickupAddress[0]);
             addLoadBinding.city.setText(pickupAddress[1]);
+            addLoadBinding.mulmaterial.setText(lead.getSpecialRequirement().getAdditionalMaterialType());
+            addLoadBinding.mulPickup.setText(lead.getSpecialRequirement().getPickupStreet());
+            addLoadBinding.mulDelivery.setText(lead.getSpecialRequirement().getDeliverystreet());
+            addLoadBinding.remark.setText(lead.getSpecialRequirement().getRemark());
+            addLoadBinding.h.setChecked(lead.getSpecialRequirement().getHandelWithCare());
 
             if(!lead.getBidCount().equalsIgnoreCase("0")){
                 addLoadBinding.materialType.setVisibility(View.GONE);
@@ -152,7 +162,14 @@ public class AddLoadActivity extends AppCompatActivity {
             String[] deliveryAddress = lead.getDeliveryAddress().split(",");
             addLoadBinding.street2.setText(deliveryAddress[0]);
             addLoadBinding.city2.setText(deliveryAddress[1]);
+            if (addLoadBinding.specialReq.isChecked()){
 
+            addLoadBinding.mulPickup.setText(lead.getSpecialRequirement().getPickupStreet());
+            addLoadBinding.mulDelivery.setText(lead.getSpecialRequirement().getDeliverystreet());
+            addLoadBinding.remark.setText(lead.getSpecialRequirement().getRemark());
+            addLoadBinding.h.setChecked(specialRequirement.getHandelWithCare());
+
+            }
 
             addLoadBinding.deliveryContact.setText(lead.getContactForDelivery());
             addLoadBinding.btncreateLoad.setText("update load");
@@ -180,19 +197,24 @@ public class AddLoadActivity extends AppCompatActivity {
         });
 
 
-        addLoadBinding.specialReq.setOnClickListener(new View.OnClickListener() {
+
+            addLoadBinding.specialReq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(addLoadBinding.specialReq.isChecked()){
+                    addLoadBinding.specialReq.setChecked(true);
                     addLoadBinding.mulmaterial.setVisibility(View.VISIBLE);
-                    addLoadBinding.multipleStr.setVisibility(View.VISIBLE);
+                    addLoadBinding.mulPickup.setVisibility(View.VISIBLE);
+                    addLoadBinding.mulDelivery.setVisibility(View.VISIBLE);
                     addLoadBinding.remark.setVisibility(View.VISIBLE);
                     addLoadBinding.h.setVisibility(View.VISIBLE);
 
                 }
                 else {
+                    addLoadBinding.specialReq.setChecked(false);
                     addLoadBinding.mulmaterial.setVisibility(View.GONE);
-                    addLoadBinding.multipleStr.setVisibility(View.GONE);
+                    addLoadBinding.mulPickup.setVisibility(View.GONE);
+                    addLoadBinding.mulDelivery.setVisibility(View.GONE);
                     addLoadBinding.remark.setVisibility(View.GONE);
                     addLoadBinding.h.setVisibility(View.GONE);
                 }
@@ -217,7 +239,13 @@ public class AddLoadActivity extends AppCompatActivity {
                     String pickupContact = addLoadBinding.pickupContact.getText().toString();
                     String deliveryContact = addLoadBinding.deliveryContact.getText().toString();
                     String lastDate = addLoadBinding.lastDate.getText().toString();
-                    String km=addLoadBinding.km.getText().toString();
+                    String km = addLoadBinding.km.getText().toString();
+                    String remark = addLoadBinding.remark.getText().toString();
+                    String multipickup = addLoadBinding.mulPickup.getText().toString();
+                    String multidelivery = addLoadBinding.mulDelivery.getText().toString();
+                    String multiMaterial = addLoadBinding.mulmaterial.getText().toString();
+                    boolean handleWithcare = addLoadBinding.h.callOnClick();
+
                     if (TextUtils.isEmpty(materialType)) {
                         addLoadBinding.materialType.setError("choose material type");
                         return;
@@ -252,10 +280,17 @@ public class AddLoadActivity extends AppCompatActivity {
                         addLoadBinding.deliveryContact.setError("choose delivery contact");
                         return;
                     }
-                    if (TextUtils.isEmpty(km)){
+                    if (TextUtils.isEmpty(km)) {
                         addLoadBinding.km.setError("choose distance");
                         return;
                     }
+
+                    SpecialRequirement sp = new SpecialRequirement();
+                    sp.setAdditionalMaterialType(multiMaterial);
+                    sp.setPickupStreet(multipickup);
+                    sp.setDeliverystreet(multidelivery);
+                    sp.setRemark(remark);
+                    sp.setHandelWithCare(handleWithcare);
 
                     leads = new Lead();
                     leads.setTypeOfMaterial(materialType);
@@ -273,6 +308,10 @@ public class AddLoadActivity extends AppCompatActivity {
                     leads.setKm(km);
                     leads.setAmount("");
                     leads.setTransporterName("");
+                    if (addLoadBinding.specialReq.isChecked()){
+                        leads.setSpecialRequirement(sp);
+                }
+
                     String button = addLoadBinding.btncreateLoad.getText().toString();
                     Toast.makeText(AddLoadActivity.this, button, Toast.LENGTH_SHORT).show();
                     if (button.equalsIgnoreCase("update load")) {
@@ -290,7 +329,7 @@ public class AddLoadActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<Lead> call, Throwable t) {
-                                Toast.makeText(AddLoadActivity.this, "Something Want wrong", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddLoadActivity.this, "Something Went wrong", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -301,8 +340,8 @@ public class AddLoadActivity extends AppCompatActivity {
                             public void onResponse(Call<Lead> call, Response<Lead> response) {
                                 if(response.code() == 200) {
                                     leads = response.body();
-                                    Toast.makeText(AddLoadActivity.this, "Load added", Toast.LENGTH_SHORT).show();
                                     getNotificationUsers();
+                                    Toast.makeText(AddLoadActivity.this, "Load added", Toast.LENGTH_SHORT).show();
                                     Intent in = new Intent(AddLoadActivity.this, MainActivity.class);
                                     in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(in);
@@ -329,8 +368,19 @@ public class AddLoadActivity extends AppCompatActivity {
 
     }
 
-   
-    private void getUpdateNotificationUsers(String leadId) {
+    public void onCheckboxClicked(View view){
+        boolean checked = ((CheckBox) view).isChecked();
+        if (checked){
+            addLoadBinding.h.setChecked(true);
+        }
+        else{
+            addLoadBinding.h.setChecked(false);
+        }
+    }
+
+
+
+        private void getUpdateNotificationUsers(String leadId) {
         userApi.getAllBidsByLeadId(leadId).enqueue(new Callback<ArrayList<Bid>>() {
             @Override
             public void onResponse(Call<ArrayList<Bid>> call, Response<ArrayList<Bid>> response) {
@@ -372,6 +422,7 @@ public class AddLoadActivity extends AppCompatActivity {
             public void onResponse(Call<ArrayList<Transporter>> call, Response<ArrayList<Transporter>> response) {
                 if(response.code() == 200){
                     for (Transporter t : response.body()){
+                        Toast.makeText(AddLoadActivity.this, ""+t.getName(), Toast.LENGTH_SHORT).show();
                         notification(t.getToken());
                     }
                 }

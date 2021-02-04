@@ -265,12 +265,21 @@
             android:layout_below="@+id/deliveryContact"
             android:layout_marginTop="19dp"
             android:buttonTint="@color/blue"
+            android:onClick="selectrequirement"
             android:layoutDirection="rtl"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:text="Special Requirement"
             android:textStyle="bold"
             android:textColor="@color/blue"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/specialReq"
+            android:id="@+id/tv"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:text="You can add additional material from another street in special requirement"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -283,15 +292,15 @@
             android:elevation="6dp"
             android:layout_marginBottom="12dp"
             android:background="@drawable/border_white"
-            android:layout_below="@+id/specialReq"
+            android:layout_below="@+id/tv"
             android:layout_marginTop="5dp"
-            android:hint="You can add multiple material"
+            android:hint="Additional Material"
             android:textSize="15sp"
             android:padding="10dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/multipleStr"
+            android:id="@+id/mulPickup"
             android:visibility="gone"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
@@ -302,7 +311,24 @@
             android:background="@drawable/border_white"
             android:layout_below="@+id/mulmaterial"
             android:layout_marginTop="5dp"
-            android:hint="pickup Addreess"
+            android:hint="Pickup Address"
+            android:textSize="15sp"
+            android:padding="10dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mulDelivery"
+            android:visibility="gone"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:textColor="@color/black"
+            android:textColorHint="#AEB9C5"
+            android:elevation="6dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/border_white"
+            android:layout_below="@+id/mulPickup"
+            android:layout_marginTop="5dp"
+            android:hint="Delivery Address"
             android:textSize="15sp"
             android:padding="10dp"/>
         <EditText
@@ -317,7 +343,7 @@
             android:elevation="6dp"
             android:layout_marginBottom="12dp"
             android:background="@drawable/border_white"
-            android:layout_below="@+id/multipleStr"
+            android:layout_below="@+id/mulDelivery"
             android:layout_marginTop="5dp"
             android:hint="Remark"
             android:textSize="15sp"
@@ -338,6 +364,7 @@
             android:layout_marginTop="5dp"
             android:hint="Handle With Care"
             android:textSize="15sp"
+            android:onClick="onCheckboxClicked"
             android:padding="10dp"/>
         <Button
             android:id="@+id/btncreateLoad"

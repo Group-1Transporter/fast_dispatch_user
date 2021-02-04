@@ -60,7 +60,7 @@ public class UserService {
         @GET("/transporter/")
         public Call<ArrayList<Transporter>> getTransporters();
 
-        @GET("transporter/{transporterId}")
+        @GET("/transporter/{transporterId}")
         public  Call<Transporter> getTransporter (@Path("transporterId") String transporterId);
 
         @GET("lead/create/confirmed/{userId}")
@@ -80,7 +80,7 @@ public class UserService {
         @GET("/bid/{leadId}")
         public  Call<ArrayList<Bid>> getAllBidsByLeadId(@Path("leadId")String leadId);
 
-        @GET("transporter/{id}")
+        @GET("/transporter/{id}")
         public Call<Transporter> getCurrentTransporter(@Path("id") String id);
 
         @POST("/user/update")
@@ -90,7 +90,7 @@ public class UserService {
         @POST("/user/image")
         public Call<User> updateImage(@Part MultipartBody.Part file, @Part ("userId") RequestBody userId);
 
-        @DELETE("lead/{leadId}")
+        @DELETE("/lead/{leadId}")
         public  Call<ArrayList<Lead>> deleteLeadById(@Path("leadId")String leadId);
 
         @GET("/lead/{leadId}")
