@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     String currentUserId;
     UserService.UserApi userApi;
     FirebaseUser currentUser;
-    float ra =2;
+    float ra =2.5f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,6 +217,20 @@ public class MainActivity extends AppCompatActivity {
         ratingDialogBinding.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                lead.setRating(true);
+                userApi.updateLead(lead).enqueue(new Callback<Lead>() {
+                    @Override
+                    public void onResponse(Call<Lead> call, Response<Lead> response) {
+                        if(response.code() == 200){
+                            //Toast.makeText(MainActivity.this, "Thanks For Giving us Rating", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Lead> call, Throwable t) {
+
+                    }
+                });
                 ab.dismiss();
             }
         });
@@ -273,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                                                                                 @Override
                                                                                 public void onResponse(Call<Lead> call, Response<Lead> response) {
                                                                                     if(response.code() == 200){
-                                                                                        Toast.makeText(MainActivity.this, "Thanks For Giving us Rating", Toast.LENGTH_SHORT).show();
+                                                                                        //Toast.makeText(MainActivity.this, "Thanks For Giving us Rating", Toast.LENGTH_SHORT).show();
                                                                                     }
                                                                                 }
 

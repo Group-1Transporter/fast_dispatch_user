@@ -16,8 +16,9 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_width="match_parent"
             android:background="#2196F3"
-            app:title="Update Profile"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+            app:title="Transporter Profile"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,12 +29,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:orientation="vertical">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:scaleType="fitXY"
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:padding="10dp"
                     android:id="@+id/civ"
-                    android:background="@drawable/user"/>
+                    android:layout_gravity="center"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:src="@drawable/user" />
 
 
                 <TextView
@@ -140,7 +143,24 @@
                 android:hint="address"
                 android:textSize="15sp"
                 android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/averageRatting"
+                android:drawableEnd="@drawable/ic_baseline_home_"
 
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:textColor="@color/black"
+                android:textColorHint="#AEB9C5"
+                android:elevation="6dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/border_white"
+                android:layout_below="@+id/loaddetail"
+                android:layout_marginTop="5dp"
+                android:hint="Ratting"
+                android:textSize="15sp"
+                android:padding="10dp"/>
 
         </LinearLayout>
 

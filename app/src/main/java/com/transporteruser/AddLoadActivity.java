@@ -340,8 +340,8 @@ public class AddLoadActivity extends AppCompatActivity {
                             public void onResponse(Call<Lead> call, Response<Lead> response) {
                                 if(response.code() == 200) {
                                     leads = response.body();
-                                    Toast.makeText(AddLoadActivity.this, "Load added", Toast.LENGTH_SHORT).show();
                                     getNotificationUsers();
+                                    Toast.makeText(AddLoadActivity.this, "Load added", Toast.LENGTH_SHORT).show();
                                     Intent in = new Intent(AddLoadActivity.this, MainActivity.class);
                                     in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(in);
@@ -422,6 +422,7 @@ public class AddLoadActivity extends AppCompatActivity {
             public void onResponse(Call<ArrayList<Transporter>> call, Response<ArrayList<Transporter>> response) {
                 if(response.code() == 200){
                     for (Transporter t : response.body()){
+                        Toast.makeText(AddLoadActivity.this, ""+t.getName(), Toast.LENGTH_SHORT).show();
                         notification(t.getToken());
                     }
                 }
