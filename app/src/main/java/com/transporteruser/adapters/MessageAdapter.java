@@ -13,8 +13,10 @@ import com.transporteruser.R;
 import com.transporteruser.bean.Message;
 import com.transporteruser.databinding.ChatListBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MessageAdapter extends ArrayAdapter {
     Context context;
@@ -33,7 +35,8 @@ public class MessageAdapter extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ChatListBinding binding = ChatListBinding.inflate(LayoutInflater.from(context));
         final Message message = al.get(position);
-
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String dateString = formatter.format(new Date(message.getTimeStamp()));
 
         if (currentUser.equals(message.getFrom())) {
 //            binding.received.setVisibility(View.GONE);
@@ -42,7 +45,7 @@ public class MessageAdapter extends ArrayAdapter {
             binding.ll1.setVisibility(View.GONE);
             binding.senderTime.setVisibility(View.GONE);
             binding.senderMsg.setVisibility(View.GONE);
-            //binding.myTime.setText(message.getTimeStamp()+" "+message.getTimeStamp());
+            binding.myTime.setText(dateString);
             binding.myMsg.setText(message.getMessage());
         } else {
 //            binding.received.setVisibility(View.VISIBLE);
@@ -53,7 +56,7 @@ public class MessageAdapter extends ArrayAdapter {
             binding.ll2.setVisibility(View.GONE);
             binding.myMsg.setVisibility(View.GONE);
             binding.myTime.setVisibility(View.GONE);
-            //binding.senderTime.setText(message.getTimeStamp()+" "+message.getTimeStamp());
+            binding.senderTime.setText(dateString);
             binding.senderMsg.setText(message.getMessage());
         }
 

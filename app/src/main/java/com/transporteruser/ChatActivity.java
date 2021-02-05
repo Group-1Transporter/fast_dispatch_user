@@ -144,7 +144,6 @@ public class ChatActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     Message msg = dataSnapshot.getValue(Message.class);
                     al.add(msg);
-
                     adapter = new MessageAdapter(ChatActivity.this,al);
                     binding.rv.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
