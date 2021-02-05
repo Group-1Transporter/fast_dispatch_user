@@ -47,7 +47,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddLoadActivity extends AppCompatActivity {
-    AddLoadBinding addLoadBinding;
+     AddLoadBinding addLoadBinding;
     String currentUserId;
     Lead leads;
     Lead lead;
@@ -124,7 +124,7 @@ public class AddLoadActivity extends AppCompatActivity {
                 Toast.makeText(AddLoadActivity.this, t + "", Toast.LENGTH_SHORT).show();
             }
         });
-        
+
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         initComponent();
         Intent i = getIntent();
@@ -134,11 +134,12 @@ public class AddLoadActivity extends AppCompatActivity {
             String[] pickupAddress = lead.getPickUpAddress().split(",");
             addLoadBinding.street.setText(pickupAddress[0]);
             addLoadBinding.city.setText(pickupAddress[1]);
-            addLoadBinding.mulmaterial.setText(lead.getSpecialRequirement().getAdditionalMaterialType());
-            addLoadBinding.mulPickup.setText(lead.getSpecialRequirement().getPickupStreet());
-            addLoadBinding.mulDelivery.setText(lead.getSpecialRequirement().getDeliverystreet());
-            addLoadBinding.remark.setText(lead.getSpecialRequirement().getRemark());
-            addLoadBinding.h.setChecked(lead.getSpecialRequirement().getHandelWithCare());
+                 if (addLoadBinding.specialReq.isChecked()){
+                addLoadBinding.mulmaterial.setText(lead.getSpecialRequirement().getAdditionalMaterialType());
+                addLoadBinding.mulPickup.setText(lead.getSpecialRequirement().getPickupStreet());
+                addLoadBinding.mulDelivery.setText(lead.getSpecialRequirement().getDeliverystreet());
+                addLoadBinding.remark.setText(lead.getSpecialRequirement().getRemark());
+                addLoadBinding.h.setChecked(lead.getSpecialRequirement().getHandelWithCare());}
 
             if(!lead.getBidCount().equalsIgnoreCase("0")){
                 addLoadBinding.materialType.setVisibility(View.GONE);
@@ -162,14 +163,14 @@ public class AddLoadActivity extends AppCompatActivity {
             String[] deliveryAddress = lead.getDeliveryAddress().split(",");
             addLoadBinding.street2.setText(deliveryAddress[0]);
             addLoadBinding.city2.setText(deliveryAddress[1]);
-            if (addLoadBinding.specialReq.isChecked()){
+                if (!(lead.getSpecialRequirement() ==null)){
+                addLoadBinding.mulmaterial.setText(lead.getSpecialRequirement().getAdditionalMaterialType());
+                addLoadBinding.mulPickup.setText(lead.getSpecialRequirement().getPickupStreet());
+                addLoadBinding.mulDelivery.setText(lead.getSpecialRequirement().getDeliverystreet());
+                addLoadBinding.remark.setText(lead.getSpecialRequirement().getRemark());}
+               // addLoadBinding.h.setChecked(specialRequirement.getHandelWithCare());
 
-            addLoadBinding.mulPickup.setText(lead.getSpecialRequirement().getPickupStreet());
-            addLoadBinding.mulDelivery.setText(lead.getSpecialRequirement().getDeliverystreet());
-            addLoadBinding.remark.setText(lead.getSpecialRequirement().getRemark());
-            addLoadBinding.h.setChecked(specialRequirement.getHandelWithCare());
-
-            }
+            
 
             addLoadBinding.deliveryContact.setText(lead.getContactForDelivery());
             addLoadBinding.btncreateLoad.setText("update load");
@@ -240,6 +241,7 @@ public class AddLoadActivity extends AppCompatActivity {
                     String deliveryContact = addLoadBinding.deliveryContact.getText().toString();
                     String lastDate = addLoadBinding.lastDate.getText().toString();
                     String km = addLoadBinding.km.getText().toString();
+
                     String remark = addLoadBinding.remark.getText().toString();
                     String multipickup = addLoadBinding.mulPickup.getText().toString();
                     String multidelivery = addLoadBinding.mulDelivery.getText().toString();

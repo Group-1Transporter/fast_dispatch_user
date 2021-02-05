@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/border_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/ll"
+        android:weightSum="1"
+        android:background="@drawable/borderwhiteblue"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="0.9"
+        android:layout_height="?attr/actionBarSize"
+        android:text="Send Bid Response"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+      />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.1"
+            android:id="@+id/cancel"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cancel"/>
+    </LinearLayout>
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="18sp"
+
+        android:id="@+id/transporter_name"
+        android:layout_below="@+id/ll"
+        android:textColor="@color/blue"
+        android:drawableLeft="@drawable/user_logo"
+        android:shadowColor="@color/blue"
+        android:text="Transporter Name"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/transporter_name"
+        android:text="You can lock deal with this transporter by simply tapping on Accept button"/>
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_below="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/rupees_"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20000"
+            android:id="@+id/amount"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:textSize="30sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
+                android:text="Remark"
+                android:textColor="@color/black"
+                android:textSize="19sp" />
+            <TextView
+            android:id="@+id/tvRemark"
+            style="@style/comfirm_load_textView"
+                android:layout_marginStart="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginEnd="30dp"
+            android:layout_width="match_parent"
+            android:lines="5"
+            android:elevation="4dp"
+            android:background="#edeaea"
+            android:hint="Use Our Service To Get More Discount"
+            android:padding="10dp"
+            android:textSize="16sp" />
+            <Button
+                android:layout_width="270dp"
+                android:layout_height="40dp"
+                android:id="@+id/btnAccept"
+                android:layout_gravity="center"
+                android:background="@drawable/button_blue"
+                android:text="Accept"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:elevation="10dp"
+                android:layout_marginRight="2dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

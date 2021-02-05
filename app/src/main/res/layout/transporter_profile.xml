@@ -9,7 +9,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue"
+        android:background="@color/white"
         android:orientation="vertical">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -19,25 +19,24 @@
             app:title="Update Profile"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="360dp">
+
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="310dp"
                 android:orientation="vertical">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:scaleType="fitXY"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
                     android:id="@+id/civ"
-                    android:background="@drawable/user"/>
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/user_logo"/>
 
 
                 <TextView
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,21 +65,28 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:textColor="@color/blue"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Please Create Your Profile"/>
+                    android:layout_gravity="center_horizontal"/>
             </androidx.cardview.widget.CardView>
 
 
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center">
-
-            <EditText
+            <TextView
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/blue"
+                android:shadowColor="@color/blue"
+                android:text="Transporter Name"
+                android:textStyle="bold" />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/userName"
@@ -97,21 +103,25 @@
                 android:hint="User Name"
                 android:textSize="15sp"
                 android:padding="10dp"/>
-
-            android:text="Wiliam@gmail.com"/>
-
-            <EditText
+            <TextView
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/phone_number"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/blue"
+                android:shadowColor="@color/white"
+                android:text="Address"
+                android:textStyle="bold" />
+                <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/address"
                 android:drawableEnd="@drawable/phone2"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:textColor="@color/black"
-                android:textColorHint="#AEB9C5"
                 android:elevation="10dp"
-                android:maxLength="10"
-                android:inputType="phone"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/border_white"
                 android:layout_below="@+id/loaddetail"
@@ -119,25 +129,33 @@
                 android:hint="Phone Number"
                 android:textSize="15sp"
                 android:padding="10dp"/>
-
-            android:text="Wiliam@gmail.com"/>
-
-            <EditText
+            <TextView
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/address"
+                android:layout_marginTop="15dp"
+
+                android:textColor="@color/blue"
+                android:shadowColor="@color/white"
+                android:text="Rating"
+                android:textStyle="bold" />
+                  <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rating"
                 android:drawableEnd="@drawable/ic_baseline_home_"
 
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:textColor="@color/black"
-                android:textColorHint="#AEB9C5"
                 android:elevation="6dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/border_white"
                 android:layout_below="@+id/loaddetail"
                 android:layout_marginTop="5dp"
-                android:hint="address"
+                android:hint="2.5"
                 android:textSize="15sp"
                 android:padding="10dp"/>
 

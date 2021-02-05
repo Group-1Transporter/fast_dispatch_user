@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.transporteruser.fragement.ConfirmFragment;
 import com.transporteruser.fragement.CreateFragment;
+import com.transporteruser.fragement.CreateHistoryFragment;
 import com.transporteruser.fragement.HistoryFragement;
 import com.transporteruser.fragement.HistoryFragment;
 
@@ -31,7 +32,7 @@ public class TabAccessAdapter2 extends FragmentPagerAdapter {
                 fragment = new HistoryFragment();
                 break;
             case 1:
-                fragment = new CreateFragment();
+                fragment = new CreateHistoryFragment();
                 break;
         }
         return fragment;

@@ -46,9 +46,10 @@ public class TransporterProfile extends AppCompatActivity {
                     Picasso.get().load(transporter.getImageUrl()).into(binding.civ);
                     binding.address.setText(transporter.getAddress());
                     binding.userName.setText(transporter.getName());
-                    binding.phoneNumber.setText(transporter.getContactNumber());
                     binding.category.setText(transporter.getType());
-                    binding.toolbar.setTitle("Transporter Profile");
+                   binding.toolbar.setTitle("Transporter Profile");
+                    setSupportActionBar(binding.toolbar);
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
                 }
             }

@@ -51,13 +51,9 @@ public class CreatedLeadShowAdapter extends RecyclerView.Adapter<CreatedLeadShow
         holder.binding.tvLastDate.setText(lead.getDateOfCompletion());
         holder.binding.tvDistance.setText(lead.getKm());
 
-        if (!lead.getBidCount().equalsIgnoreCase("0")) {
-            holder.binding.llCounter.setVisibility(View.VISIBLE);
-            holder.binding.tvCounter.setText("" + lead.getBidCount());
-        }
-        else{
             holder.binding.llCounter.setVisibility(View.GONE);
-        }
+
+
         holder.binding.morevertical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +111,9 @@ public class CreatedLeadShowAdapter extends RecyclerView.Adapter<CreatedLeadShow
     }
 
     public void OnCreate(HomeAdapter.OnHomeRecyclerListner onHomeRecyclerListner) {
+    }
+
+    public void OnHomeClick(HomeAdapter.OnHomeRecyclerListner onHomeRecyclerListner) {
     }
 
     public class CreatedViewHolder extends RecyclerView.ViewHolder {
