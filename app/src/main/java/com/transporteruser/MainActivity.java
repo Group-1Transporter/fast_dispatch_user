@@ -1,4 +1,4 @@
- package com.transporteruser;
+package com.transporteruser;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             TextView name = view.findViewById(R.id.tvUsername);
             String userName = sp.getString("name","not_found");
             if (!userName.equalsIgnoreCase("not_found"))
-            name.setText(userName);
+                name.setText(userName);
             ImageView iv = view.findViewById(R.id.back);
             CircleImageView civ = view.findViewById(R.id.civUser);
             if(!image.equalsIgnoreCase("not_found"))
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this,UpdateProfileActivity.class);
                         startActivity(intent);
                     } else if (id == R.id.home) {
-                       binding.tvToolbarHome.setText("Home");
+                        binding.tvToolbarHome.setText("Home");
                         selected = new HomeFragement();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame, selected).commit();
                     } else if (id == R.id.history) {
@@ -157,19 +157,19 @@ public class MainActivity extends AppCompatActivity {
                         selected = new HistoryFragement();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame, selected).commit();
                     }
-                     else if (id==R.id.currentLoad){
-                         Intent i=new Intent(MainActivity.this,CurrentLoad.class);
-                         startActivity(i);
+                    else if (id==R.id.currentLoad){
+                        Intent i=new Intent(MainActivity.this,CurrentLoad.class);
+                        startActivity(i);
 
                     }
-                     else if (id==R.id.confirmedLoad){
-                         Intent i=new Intent(MainActivity.this,ConfirmedLoad.class);
-                         startActivity(i);
+                    else if (id==R.id.confirmedLoad){
+                        Intent i=new Intent(MainActivity.this,ConfirmedLoad.class);
+                        startActivity(i);
 
                     }
                     else if (id == R.id.TermAndCondition) {
-                       Intent i = new Intent(MainActivity.this, TermAndCondition.class);
-                       startActivity(i);
+                        Intent i = new Intent(MainActivity.this, TermAndCondition.class);
+                        startActivity(i);
 
                     } else if (id == R.id.PrivacyPoalcy) {
                         Intent i = new Intent(MainActivity.this, PrivacyPolicy.class);
@@ -392,19 +392,19 @@ public class MainActivity extends AppCompatActivity {
                     if(response.code() == 200){
                         User user = response.body();
                         user.setToken(token);
-                            userApi.updateProfile(user).enqueue(new Callback<User>() {
-                                @Override
-                                public void onResponse(Call<User> call, Response<User> response) {
-                                    if(response.code() == 200){
-                                        saveDataLocally(response.body());
-                                    }
+                        userApi.updateProfile(user).enqueue(new Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
+                                if(response.code() == 200){
+                                    saveDataLocally(response.body());
                                 }
+                            }
 
-                                @Override
-                                public void onFailure(Call<User> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
 
-                                }
-                            });
+                            }
+                        });
                     }else if(response.code() == 404){
                         Toast.makeText(MainActivity.this, "Create Profile", Toast.LENGTH_SHORT).show();
                         sendUserToCreateProfile();

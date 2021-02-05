@@ -23,6 +23,7 @@ import com.transporteruser.api.UserService;
 import com.transporteruser.bean.Bid;
 import com.transporteruser.bean.Lead;
 import com.transporteruser.bean.Transporter;
+import com.transporteruser.databinding.AcceptBidBinding;
 import com.transporteruser.databinding.ActivityBidShowBinding;
 import com.transporteruser.databinding.ReceiveBiddingAlrtdilogBinding;
 
@@ -73,7 +74,32 @@ public class BidShowActivity extends AppCompatActivity {
         binding.materialType.setText(lead.getTypeOfMaterial());
         binding.pickupAddress.setText(pickupAddress[0]+","+pickupAddress[1]);
         binding.deliveryAddress.setText(deliveyAdress[0]+","+deliveyAdress[1]);
+        if (!(lead.getSpecialRequirement() ==null)){
+        binding.mulmaterial.setText(lead.getSpecialRequirement().getAdditionalMaterialType());
+        binding.multiPickup.setText(lead.getSpecialRequirement().getPickupStreet());
+        binding.multidelivery.setText(lead.getSpecialRequirement().getDeliverystreet());
+        if (lead.getSpecialRequirement().getHandelWithCare().equals(true)){
+            binding.ll3.setVisibility(View.VISIBLE);
+        }
+        if (lead.getSpecialRequirement().getHandelWithCare().equals(true)&&lead.getSpecialRequirement().getAdditionalMaterialType().equals("")){
+            binding.ll3.setVisibility(View.VISIBLE);
+            binding.cd1.setVisibility(View.GONE);
+        }
+        if (lead.getSpecialRequirement().getRemark().equals("")){
+            binding.remark.setText("Remark not provided");
+        }
+        else {
+        binding.remark.setText(lead.getSpecialRequirement().getRemark());}}
+
+        else {
+            binding.cd1.setVisibility(View.GONE);
+            binding.tv.setVisibility(View.GONE);
+
+        }
+
+
     }
+
 
     private void getBidsByLead(String leadId) {
         Call<ArrayList<Bid>> call = userApi.getAllBidsByLeadId(leadId);
@@ -115,16 +141,17 @@ public class BidShowActivity extends AppCompatActivity {
 
     private void getAlertDialog(final Bid bid){
         final AlertDialog ab = new AlertDialog.Builder(this).create();
-        ReceiveBiddingAlrtdilogBinding binding = ReceiveBiddingAlrtdilogBinding.inflate(LayoutInflater.from(this));
+
+        AcceptBidBinding  binding = AcceptBidBinding.inflate(LayoutInflater.from(this));
         ab.setView(binding.getRoot());
         ab.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        binding.address.setText(lead.getPickUpAddress()+" To "+lead.getDeliveryAddress());
-        binding.tvdate.setText(bid.getEstimatedDate());
-        binding.tvRate.setText(""+bid.getAmount());
+       // binding.address.setText(lead.getPickUpAddress()+" To "+lead.getDeliveryAddress());
+      //  binding.tvdate.setText(bid.getEstimatedDate());
+       binding.amount.setText(""+bid.getAmount());
         binding.tvRemark.setText(bid.getRemark());
-        binding.tvTransporterName.setText(bid.getTransporterName());
-        binding.tvMaterial.setText(lead.getTypeOfMaterial());
-        binding.ivCancel.setOnClickListener(new View.OnClickListener() {
+        binding.transporterName.setText(bid.getTransporterName());
+        //binding.tvMaterial.setText(lead.getTypeOfMaterial());
+        binding.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ab.dismiss();
