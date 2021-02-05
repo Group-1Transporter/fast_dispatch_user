@@ -6,7 +6,7 @@
         android:layout_width="150dp"
         android:id="@+id/im"
         android:layout_height="150dp"
-        android:src="@drawable/nodata"
+        android:src="@drawable/no_data_found"
         android:visibility="gone"
         android:scaleType="fitCenter"
         android:layout_centerInParent="true"

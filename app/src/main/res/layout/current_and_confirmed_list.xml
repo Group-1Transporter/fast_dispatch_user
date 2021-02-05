@@ -403,6 +403,7 @@
                         <ImageView
                             android:layout_width="37dp"
                             android:layout_height="30dp"
+
                             android:layout_gravity="center"
                             android:background="@drawable/progress"
                             android:layout_marginLeft="50dp"/>
@@ -415,21 +416,21 @@
 
 
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Status "
-                                android:textColor="@color/black" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Status "
+                            android:textColor="@color/black" />
 
-                            <TextView
-                                android:id="@+id/tvProgressStatus"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Loaded"
-                                android:textColor="@color/green"
-                                android:textSize="13sp" />
+                        <TextView
+                            android:id="@+id/tvProgressStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Loaded"
+                            android:textColor="@color/green"
+                            android:textSize="13sp" />
                         </LinearLayout>
 
                     </LinearLayout>
