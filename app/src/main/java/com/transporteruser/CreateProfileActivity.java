@@ -58,16 +58,16 @@ public class CreateProfileActivity extends AppCompatActivity {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PermissionChecker.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 11);
             }
+                binding.edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent in = new Intent();
+                        in.setAction(Intent.ACTION_GET_CONTENT);
+                        in.setType("image/*");
+                        startActivityForResult(in, 1);
+                    }
+                });
 
-            binding.civ.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent in = new Intent();
-                    in.setAction(Intent.ACTION_GET_CONTENT);
-                    in.setType("image/*");
-                    startActivityForResult(in, 1);
-                }
-            });
 
             binding.createProfile.setOnClickListener(new View.OnClickListener() {
                 @Override

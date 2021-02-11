@@ -46,8 +46,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     @Override
     public void onBindViewHolder(@NonNull final HomeViewHolder holder, final int position) {
         final Lead lead = list.get(position);
-        if(position == 0 && lead.getStatus().equals("")) {
-            holder.binding.tvCl.setVisibility(View.VISIBLE);
+        /*if(position == 0 && lead.getStatus().equals("")) {
+            holder.bi nding.tvCl.setVisibility(View.VISIBLE);
             holder.binding.tvCl.setText("Current Loads");
         }else if(confirmedLoad){
             holder.binding.tvCl.setVisibility(View.VISIBLE);
@@ -55,7 +55,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         }else{
             holder.binding.tvCl.setVisibility(View.GONE);
         }
-
+*/
 
         if(lead !=null && lead.getStatus().equals("")) {
             holder.binding.llCurrentLoad.setVisibility(View.VISIBLE);

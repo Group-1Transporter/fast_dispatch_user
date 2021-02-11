@@ -66,14 +66,14 @@ public class BidShowActivity extends AppCompatActivity {
         String delivery= (deliveyAdress[2]);
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(pickup+" To "+delivery);
+        getSupportActionBar().setTitle("Load Details");
         binding.lastDate.setText(lead.getDateOfCompletion());
         binding.weight.setText(lead.getKm());
         binding.tvpickupContact.setText(lead.getContactForPickup());
         binding.tvDeliveryContact.setText(lead.getContactForDelivery());
         binding.materialType.setText(lead.getTypeOfMaterial());
-        binding.pickupAddress.setText(pickupAddress[0]+","+pickupAddress[1]);
-        binding.deliveryAddress.setText(deliveyAdress[0]+","+deliveyAdress[1]);
+        binding.pickupAddress.setText(lead.getPickUpAddress());
+        binding.deliveryAddress.setText(lead.getDeliveryAddress());
         if (!(lead.getSpecialRequirement() ==null)){
         binding.mulmaterial.setText(lead.getSpecialRequirement().getAdditionalMaterialType());
         binding.multiPickup.setText(lead.getSpecialRequirement().getPickupStreet());

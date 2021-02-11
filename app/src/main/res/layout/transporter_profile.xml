@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/averageRatting"
                 android:drawableEnd="@drawable/ic_baseline_home_"
-
+                 android:visibility="gone"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:textColor="@color/black"

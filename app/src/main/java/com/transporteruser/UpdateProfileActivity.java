@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.PermissionChecker;
+import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -25,6 +26,7 @@ import com.transporteruser.api.UserService;
 import com.transporteruser.bean.User;
 import com.transporteruser.databinding.ActivityCreateProfileBinding;
 import com.transporteruser.fragement.HistoryFragement;
+import com.transporteruser.fragement.HistoryFragment;
 
 import java.io.File;
 import java.security.PKCS12Attribute;
@@ -43,6 +45,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     UserService.UserApi userApi;
     Uri imageUri;
     String userId;
+    private Object HistoryFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +68,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         Picasso.get().load(imageUrl).into(binding.civ);
         binding.name.setText(sp.getString("name",""));
 
-        binding.civ.setOnClickListener(new View.OnClickListener() {
+        binding.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent in = new Intent();
@@ -88,6 +91,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent in=new Intent(UpdateProfileActivity.this,MainActivity.class);
+
                 in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(in);
                 finish();
@@ -96,10 +100,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
         binding.histry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in=new Intent(UpdateProfileActivity.this, HistoryFragement.class);
-                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(in);
-                finish();
+                Fragment selected =null;
+                selected=new HistoryFragement();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame, selected).commit();
+
+
 
             }
         });
