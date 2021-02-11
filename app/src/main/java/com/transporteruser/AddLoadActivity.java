@@ -167,8 +167,8 @@ public class AddLoadActivity extends AppCompatActivity {
                 addLoadBinding.mulmaterial.setText(lead.getSpecialRequirement().getAdditionalMaterialType());
                 addLoadBinding.mulPickup.setText(lead.getSpecialRequirement().getPickupStreet());
                 addLoadBinding.mulDelivery.setText(lead.getSpecialRequirement().getDeliverystreet());
-                addLoadBinding.remark.setText(lead.getSpecialRequirement().getRemark());}
-               // addLoadBinding.h.setChecked(specialRequirement.getHandelWithCare());
+                addLoadBinding.remark.setText(lead.getSpecialRequirement().getRemark());
+               addLoadBinding.h.setChecked(lead.getSpecialRequirement().getHandelWithCare());}
 
             
 

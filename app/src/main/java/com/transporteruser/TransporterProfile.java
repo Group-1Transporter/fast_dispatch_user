@@ -34,7 +34,7 @@ public class TransporterProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = TransporterProfileBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
-       Intent i = getIntent();
+        Intent i = getIntent();
         bid = (Bid) i.getSerializableExtra("bid");
         String transporterId=bid.getTransporterId();
         UserService.UserApi userApi = UserService.getUserApiInstance();
@@ -48,7 +48,7 @@ public class TransporterProfile extends AppCompatActivity {
                     binding.address.setText(transporter.getAddress());
                     binding.userName.setText(transporter.getName());
                     binding.category.setText(transporter.getType());
-                   binding.toolbar.setTitle("Transporter Profile");
+                    binding.toolbar.setTitle("Transporter Profile");
                     setSupportActionBar(binding.toolbar);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

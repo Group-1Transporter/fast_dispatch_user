@@ -67,6 +67,7 @@ public class ChatActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         Intent in = getIntent();
         transporterId = in.getStringExtra("transporterId");
+
         UserService.UserApi userApi = UserService.getUserApiInstance();
         if (NetworkUtility.checkInternetConnection(this)) {
             firebaseDatabase = FirebaseDatabase.getInstance().getReference();
@@ -79,6 +80,7 @@ public class ChatActivity extends AppCompatActivity {
                         setSupportActionBar(binding.toolbar);
                         binding.tvName.setText(transporter.getName());
                         Picasso.get().load(transporter.getImageUrl()).into(binding.civUser);
+
                     }
                 }
 
